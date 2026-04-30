@@ -2,7 +2,7 @@ import open from "open";
 import chalk from "chalk";
 import { createServer } from "http";
 import api from "../lib/api.js";
-import { BASE_URL } from "../config.js";
+import { BASE_URL, HOST } from "../config.js";
 import { clearCredentials, getCredentials, saveCredentials } from "../lib/auth.js";
 import { failSpinner, startSpinner, succeedSpinner, stopSpinner } from "../lib/output.js";
 
@@ -17,7 +17,7 @@ export const registerAuthCommands = (program) => {
 
       try {
         const server = createServer(async (req, res) => {
-          const url = new URL(req.url, `http://localhost:${PORT}`);
+          const url = new URL(req.url, `http://${HOST}:${PORT}`);
 
           if (url.pathname === "/callback") {
             const access_token  = url.searchParams.get("access_token");
